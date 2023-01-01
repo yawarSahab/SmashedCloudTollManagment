@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TollModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="EnterVehicle" ReturnType="Collection(Decimal)">
+      <Parameter Name="EnteringTollInterChangeId" Mode="In" Type="Int32" />
+      <Parameter Name="EnteringDateTime" Mode="In" Type="DateTime" />
+      <Parameter Name="VehicleNumberPlate" Mode="In" Type="String" />
+      <Parameter Name="AddedBy" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="GetAndUpdateVehicleExit" ReturnType="Collection(TollModel.GetAndUpdateVehicleExit_Result)">
+      <Parameter Name="VehicleNumberPlate" Mode="In" Type="String" />
+      <Parameter Name="ExitingTollInterChangeId" Mode="In" Type="Int32" />
+      <Parameter Name="ExitingDateTime" Mode="In" Type="DateTime" />
+      <Parameter Name="UpdatedBy" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="GetSpecialDays" ReturnType="Collection(TollModel.GetSpecialDays_Result)">
+      <Parameter Name="exitDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="GetTollInterchange" ReturnType="Collection(TollModel.GetTollInterchange_Result)">
+      <Parameter Name="TollInterchangeId" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="GetAndUpdateVehicleExit_Result">
+    <Property Type="Int32" Name="TollEntryAndExitId" Nullable="false" />
+    <Property Type="Int32" Name="EnteringTollInterChangeId" Nullable="false" />
+    <Property Type="DateTime" Name="EnteringDateTime" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="ExitingTollInterChangeId" Nullable="true" />
+    <Property Type="DateTime" Name="ExitingDateTime" Nullable="true" Precision="23" />
+    <Property Type="String" Name="VehicleNumberPlate" Nullable="false" MaxLength="10" />
+    <Property Type="Double" Name="EnteringDistanceInKm" Nullable="false" />
+    <Property Type="String" Name="EnteringTollInterchangeTitle" Nullable="false" MaxLength="200" />
+    <Property Type="Double" Name="ExitingDistanceInKm" Nullable="false" />
+    <Property Type="String" Name="ExitingTollInterchangeTitle" Nullable="false" MaxLength="200" />
+  </ComplexType>
+  <ComplexType Name="GetSpecialDays_Result">
+    <Property Type="Int32" Name="SpecialDayId" Nullable="false" />
+    <Property Type="String" Name="DayTile" Nullable="false" MaxLength="20" />
+    <Property Type="Int32" Name="DayNumber" Nullable="true" />
+    <Property Type="DateTime" Name="DayDate" Nullable="true" />
+    <Property Type="Double" Name="ExtraChargeAmountPercentage" Nullable="true" />
+    <Property Type="Double" Name="DiscountPercentage" Nullable="true" />
+    <Property Type="Int32" Name="SpecialDiscountTypeId" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="GetTollInterchange_Result">
+    <Property Type="Int32" Name="TollInterChangeId" Nullable="false" />
+    <Property Type="String" Name="TollInterchangeTitle" Nullable="false" MaxLength="200" />
+    <Property Type="Double" Name="DistanceInKm" Nullable="false" />
+    <Property Type="String" Name="AddedBy" Nullable="false" MaxLength="128" />
+    <Property Type="DateTime" Name="AddedDateTime" Nullable="false" Precision="23" />
+    <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
+  </ComplexType>
+</Schema>

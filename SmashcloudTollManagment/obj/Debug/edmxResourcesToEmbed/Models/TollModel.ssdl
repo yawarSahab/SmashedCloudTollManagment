@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TollModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <Function Name="EnterVehicle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EnteringTollInterChangeId" Type="int" Mode="In" />
+    <Parameter Name="EnteringDateTime" Type="datetime" Mode="In" />
+    <Parameter Name="VehicleNumberPlate" Type="varchar" Mode="In" />
+    <Parameter Name="AddedBy" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="GetAndUpdateVehicleExit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="VehicleNumberPlate" Type="varchar" Mode="In" />
+    <Parameter Name="ExitingTollInterChangeId" Type="int" Mode="In" />
+    <Parameter Name="ExitingDateTime" Type="datetime" Mode="In" />
+    <Parameter Name="UpdatedBy" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="GetSpecialDays" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="exitDate" Type="date" Mode="In" />
+  </Function>
+  <Function Name="GetTollInterchange" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TollInterchangeId" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="TollModelStoreContainer" />
+</Schema>

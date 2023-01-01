@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TollModelStoreContainer" CdmEntityContainer="Entities">
+    <FunctionImportMapping FunctionImportName="EnterVehicle" FunctionName="TollModel.Store.EnterVehicle" />
+    <FunctionImportMapping FunctionImportName="GetAndUpdateVehicleExit" FunctionName="TollModel.Store.GetAndUpdateVehicleExit">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TollModel.GetAndUpdateVehicleExit_Result">
+          <ScalarProperty Name="TollEntryAndExitId" ColumnName="TollEntryAndExitId" />
+          <ScalarProperty Name="EnteringTollInterChangeId" ColumnName="EnteringTollInterChangeId" />
+          <ScalarProperty Name="EnteringDateTime" ColumnName="EnteringDateTime" />
+          <ScalarProperty Name="ExitingTollInterChangeId" ColumnName="ExitingTollInterChangeId" />
+          <ScalarProperty Name="ExitingDateTime" ColumnName="ExitingDateTime" />
+          <ScalarProperty Name="VehicleNumberPlate" ColumnName="VehicleNumberPlate" />
+          <ScalarProperty Name="EnteringDistanceInKm" ColumnName="EnteringDistanceInKm" />
+          <ScalarProperty Name="EnteringTollInterchangeTitle" ColumnName="EnteringTollInterchangeTitle" />
+          <ScalarProperty Name="ExitingDistanceInKm" ColumnName="ExitingDistanceInKm" />
+          <ScalarProperty Name="ExitingTollInterchangeTitle" ColumnName="ExitingTollInterchangeTitle" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetSpecialDays" FunctionName="TollModel.Store.GetSpecialDays">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TollModel.GetSpecialDays_Result">
+          <ScalarProperty Name="SpecialDayId" ColumnName="SpecialDayId" />
+          <ScalarProperty Name="DayTile" ColumnName="DayTile" />
+          <ScalarProperty Name="DayNumber" ColumnName="DayNumber" />
+          <ScalarProperty Name="DayDate" ColumnName="DayDate" />
+          <ScalarProperty Name="ExtraChargeAmountPercentage" ColumnName="ExtraChargeAmountPercentage" />
+          <ScalarProperty Name="DiscountPercentage" ColumnName="DiscountPercentage" />
+          <ScalarProperty Name="SpecialDiscountTypeId" ColumnName="SpecialDiscountTypeId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetTollInterchange" FunctionName="TollModel.Store.GetTollInterchange">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TollModel.GetTollInterchange_Result">
+          <ScalarProperty Name="TollInterChangeId" ColumnName="TollInterChangeId" />
+          <ScalarProperty Name="TollInterchangeTitle" ColumnName="TollInterchangeTitle" />
+          <ScalarProperty Name="DistanceInKm" ColumnName="DistanceInKm" />
+          <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+          <ScalarProperty Name="AddedDateTime" ColumnName="AddedDateTime" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

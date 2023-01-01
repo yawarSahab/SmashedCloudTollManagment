@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TollModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <Function Name="EnterVehicle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EnteringTollInterChangeId" Type="int" Mode="In" />
+          <Parameter Name="EnteringDateTime" Type="datetime" Mode="In" />
+          <Parameter Name="VehicleNumberPlate" Type="varchar" Mode="In" />
+          <Parameter Name="AddedBy" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="GetAndUpdateVehicleExit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="VehicleNumberPlate" Type="varchar" Mode="In" />
+          <Parameter Name="ExitingTollInterChangeId" Type="int" Mode="In" />
+          <Parameter Name="ExitingDateTime" Type="datetime" Mode="In" />
+          <Parameter Name="UpdatedBy" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="GetSpecialDays" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="exitDate" Type="date" Mode="In" />
+        </Function>
+        <Function Name="GetTollInterchange" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TollInterchangeId" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="TollModelStoreContainer" />
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TollModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="EnterVehicle" ReturnType="Collection(Decimal)">
+            <Parameter Name="EnteringTollInterChangeId" Mode="In" Type="Int32" />
+            <Parameter Name="EnteringDateTime" Mode="In" Type="DateTime" />
+            <Parameter Name="VehicleNumberPlate" Mode="In" Type="String" />
+            <Parameter Name="AddedBy" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetAndUpdateVehicleExit" ReturnType="Collection(TollModel.GetAndUpdateVehicleExit_Result)">
+            <Parameter Name="VehicleNumberPlate" Mode="In" Type="String" />
+            <Parameter Name="ExitingTollInterChangeId" Mode="In" Type="Int32" />
+            <Parameter Name="ExitingDateTime" Mode="In" Type="DateTime" />
+            <Parameter Name="UpdatedBy" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetSpecialDays" ReturnType="Collection(TollModel.GetSpecialDays_Result)">
+            <Parameter Name="exitDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="GetTollInterchange" ReturnType="Collection(TollModel.GetTollInterchange_Result)">
+            <Parameter Name="TollInterchangeId" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="GetAndUpdateVehicleExit_Result">
+          <Property Type="Int32" Name="TollEntryAndExitId" Nullable="false" />
+          <Property Type="Int32" Name="EnteringTollInterChangeId" Nullable="false" />
+          <Property Type="DateTime" Name="EnteringDateTime" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="ExitingTollInterChangeId" Nullable="true" />
+          <Property Type="DateTime" Name="ExitingDateTime" Nullable="true" Precision="23" />
+          <Property Type="String" Name="VehicleNumberPlate" Nullable="false" MaxLength="10" />
+          <Property Type="Double" Name="EnteringDistanceInKm" Nullable="false" />
+          <Property Type="String" Name="EnteringTollInterchangeTitle" Nullable="false" MaxLength="200" />
+          <Property Type="Double" Name="ExitingDistanceInKm" Nullable="false" />
+          <Property Type="String" Name="ExitingTollInterchangeTitle" Nullable="false" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="GetSpecialDays_Result">
+          <Property Type="Int32" Name="SpecialDayId" Nullable="false" />
+          <Property Type="String" Name="DayTile" Nullable="false" MaxLength="20" />
+          <Property Type="Int32" Name="DayNumber" Nullable="true" />
+          <Property Type="DateTime" Name="DayDate" Nullable="true" />
+          <Property Type="Double" Name="ExtraChargeAmountPercentage" Nullable="true" />
+          <Property Type="Double" Name="DiscountPercentage" Nullable="true" />
+          <Property Type="Int32" Name="SpecialDiscountTypeId" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetTollInterchange_Result">
+          <Property Type="Int32" Name="TollInterChangeId" Nullable="false" />
+          <Property Type="String" Name="TollInterchangeTitle" Nullable="false" MaxLength="200" />
+          <Property Type="Double" Name="DistanceInKm" Nullable="false" />
+          <Property Type="String" Name="AddedBy" Nullable="false" MaxLength="128" />
+          <Property Type="DateTime" Name="AddedDateTime" Nullable="false" Precision="23" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TollModelStoreContainer" CdmEntityContainer="Entities" >
+          <FunctionImportMapping FunctionImportName="EnterVehicle" FunctionName="TollModel.Store.EnterVehicle" />
+          <FunctionImportMapping FunctionImportName="GetAndUpdateVehicleExit" FunctionName="TollModel.Store.GetAndUpdateVehicleExit">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TollModel.GetAndUpdateVehicleExit_Result">
+                <ScalarProperty Name="TollEntryAndExitId" ColumnName="TollEntryAndExitId" />
+                <ScalarProperty Name="EnteringTollInterChangeId" ColumnName="EnteringTollInterChangeId" />
+                <ScalarProperty Name="EnteringDateTime" ColumnName="EnteringDateTime" />
+                <ScalarProperty Name="ExitingTollInterChangeId" ColumnName="ExitingTollInterChangeId" />
+                <ScalarProperty Name="ExitingDateTime" ColumnName="ExitingDateTime" />
+                <ScalarProperty Name="VehicleNumberPlate" ColumnName="VehicleNumberPlate" />
+                <ScalarProperty Name="EnteringDistanceInKm" ColumnName="EnteringDistanceInKm" />
+                <ScalarProperty Name="EnteringTollInterchangeTitle" ColumnName="EnteringTollInterchangeTitle" />
+                <ScalarProperty Name="ExitingDistanceInKm" ColumnName="ExitingDistanceInKm" />
+                <ScalarProperty Name="ExitingTollInterchangeTitle" ColumnName="ExitingTollInterchangeTitle" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetSpecialDays" FunctionName="TollModel.Store.GetSpecialDays">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TollModel.GetSpecialDays_Result">
+                <ScalarProperty Name="SpecialDayId" ColumnName="SpecialDayId" />
+                <ScalarProperty Name="DayTile" ColumnName="DayTile" />
+                <ScalarProperty Name="DayNumber" ColumnName="DayNumber" />
+                <ScalarProperty Name="DayDate" ColumnName="DayDate" />
+                <ScalarProperty Name="ExtraChargeAmountPercentage" ColumnName="ExtraChargeAmountPercentage" />
+                <ScalarProperty Name="DiscountPercentage" ColumnName="DiscountPercentage" />
+                <ScalarProperty Name="SpecialDiscountTypeId" ColumnName="SpecialDiscountTypeId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetTollInterchange" FunctionName="TollModel.Store.GetTollInterchange">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TollModel.GetTollInterchange_Result">
+                <ScalarProperty Name="TollInterChangeId" ColumnName="TollInterChangeId" />
+                <ScalarProperty Name="TollInterchangeTitle" ColumnName="TollInterchangeTitle" />
+                <ScalarProperty Name="DistanceInKm" ColumnName="DistanceInKm" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="AddedDateTime" ColumnName="AddedDateTime" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="false" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
